@@ -1,13 +1,22 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const logger = require("morgan");
+
 const app = express();
 
 const PORT = process.env.PORT || 3000;
+
+const db = require("./models");
+
+const apiRoutes = require("./routes/api-routes");
+
+app.use(logger("dev"));
 
 //REQUIRE CONTROLLERS
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("public"))
 
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/workout-tracker",
@@ -31,11 +40,13 @@ connection.on("error", (err) => {
 
 //GET ROUTE
 
-app.get("/api/config", (req, res) => {
-  res.json({
-    success: true,
-  });
-});
+// app.get("/api/config", (req, res) => {
+//   res.json({
+//     success: true,
+//   });
+// });
+
+app.use(apiRoutes);
 
 //USE CONTROLLERS
 
