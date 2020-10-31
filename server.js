@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3000;
 const db = require("./models");
 
 const apiRoutes = require("./routes/api-routes");
+const htmlRoutes = require("./routes/html-routes")
 
 app.use(logger("dev"));
 
@@ -47,8 +48,9 @@ connection.on("error", (err) => {
 // });
 
 app.use(apiRoutes);
+app.use(htmlRoutes);
 
-//USE CONTROLLERS
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
