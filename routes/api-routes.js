@@ -9,6 +9,16 @@ router.get("/api/workouts", (req, res) => {
   });
 });
 
+router.get("/api/workouts/range", (req, res) => {
+  db.Workout.find({})
+    .sort({ day: -1 })
+    .limit(10)
+    .then((workoutRange) => {
+      res.json(workoutRange);
+    })
+    .catch((err) => console.log(err));
+});
+
 router.post("/api/workouts", (req, res) => {
     db.Workout.create(req.body)
     .then((createdWorkout) => {
